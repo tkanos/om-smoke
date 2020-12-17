@@ -1,5 +1,8 @@
 FROM golang:1.14 as builder
 
+ADD https://github.com/golang/go/raw/master/lib/time/zoneinfo.zip /zoneinfo.zip
+ENV ZONEINFO /zoneinfo.zip
+
 WORKDIR /go/src/github.com/checkr/
 RUN git clone https://github.com/checkr/openmock.git /go/src/github.com/checkr/openmock
 WORKDIR /go/src/github.com/checkr/openmock
