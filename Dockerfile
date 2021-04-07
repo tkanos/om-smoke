@@ -1,4 +1,4 @@
-FROM golang:1.14 as builder
+FROM golang:1.16.3 as builder
 
 WORKDIR /go/src/github.com/checkr/
 RUN git clone https://github.com/checkr/openmock.git /go/src/github.com/checkr/openmock
@@ -9,13 +9,13 @@ RUN git clone https://github.com/bluehoodie/smoke.git /go/src/github.com/bluehoo
 WORKDIR /go/src/github.com/bluehoodie/smoke
 RUN CGO_ENABLED=0 GOOS=linux go build -o smoke .
 
-FROM alpine:latest
+FROM golang:1.16.3
 
 ADD https://github.com/golang/go/raw/master/lib/time/zoneinfo.zip /zoneinfo.zip
 ENV ZONEINFO /zoneinfo.zip
 
 WORKDIR /bin
-RUN apk add --no-cache ca-certificates libc6-compat
+#RUN apk add --no-cache ca-certificates libc6-compat
 COPY --from=builder /go/src/github.com/checkr/openmock/om /bin/om
 COPY --from=builder /go/src/github.com/bluehoodie/smoke/smoke /bin/smoke
 ENV OPENMOCK_HTTP_HOST=0.0.0.0
