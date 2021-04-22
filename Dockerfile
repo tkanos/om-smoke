@@ -12,7 +12,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o smoke .
 FROM alpine as certs
 RUN apk update && apk add ca-certificates
 
-FROM busybox:latest
+FROM busybox:1-glibc
 
 ADD https://github.com/golang/go/raw/master/lib/time/zoneinfo.zip /zoneinfo.zip
 ENV ZONEINFO /zoneinfo.zip
