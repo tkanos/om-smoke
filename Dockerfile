@@ -15,7 +15,7 @@ ADD https://github.com/golang/go/raw/master/lib/time/zoneinfo.zip /zoneinfo.zip
 ENV ZONEINFO /zoneinfo.zip
 
 WORKDIR /bin
-RUN apk add --no-cache ca-certificates libc6-compat
+RUN opkg-install ca-certificates libc6-compat
 COPY --from=builder /go/src/github.com/checkr/openmock/om /bin/om
 COPY --from=builder /go/src/github.com/bluehoodie/smoke/smoke /bin/smoke
 ENV OPENMOCK_HTTP_HOST=0.0.0.0
