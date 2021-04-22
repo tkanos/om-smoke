@@ -9,7 +9,7 @@ RUN git clone https://github.com/bluehoodie/smoke.git /go/src/github.com/bluehoo
 WORKDIR /go/src/github.com/bluehoodie/smoke
 RUN CGO_ENABLED=0 GOOS=linux go build -o smoke .
 
-FROM alpine:latest
+FROM busybox:latest
 
 ADD https://github.com/golang/go/raw/master/lib/time/zoneinfo.zip /zoneinfo.zip
 ENV ZONEINFO /zoneinfo.zip
